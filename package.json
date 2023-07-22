@@ -1,0 +1,22 @@
+{
+  "name": "notifier.studio.agenda",
+  "version": "1.0.0",
+  "description": "A notificator service.",
+  "main": "src/server.js",
+  "type": "module",
+  
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.7.0",
+    "sqlite3": "^5.1.6",
+    "web-push": "^3.6.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
