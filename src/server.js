@@ -11,6 +11,12 @@ webpush.setVapidDetails(
 
 const app = express();
 
+app.route("/subscribe").post(async(req, res) => {
+    const sub = await MongoService.setSubscriber(req.body);
+    res.status(200);
+    // .json({message: sub ?'Subscriver sent successfully.' : "Subscriber error"})
+})
+
 app.route("/notify").get(async (req, res) => {
     const allSubscriptions = await MongoService.getSubscribers();
 
@@ -40,6 +46,6 @@ app.route("/notify").get(async (req, res) => {
 
 
 app.listen({
-    host : 'localhost',
-    port: 5454
-}, () => console.log("Server Running at localhost:5454"))
+    host : '0.0.0.0',
+    port: process.env.PORT ?? "5454"
+}, () => console.log(`Server Running at 0.0.0.0:${process.env.PORT ?? "5454"}`))

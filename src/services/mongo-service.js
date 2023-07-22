@@ -38,6 +38,15 @@ export class MongoService {
             await this.client.close();
         }
     }
-    static async set() {}
+    static async setSubscriber(subscriver) {
+      try {
+        await this.client.connect();
+        return await this.client.db("subscriptions").collection("subscriptions").insertOne(subscriver)
+    } catch (error) {
+        console.error("Erro ao buscar inscritos", error);
+    } finally {
+        await this.client.close();
+    }
+    }
 
 }
