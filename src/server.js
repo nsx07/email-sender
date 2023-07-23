@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import webpush from "web-push";
 import vapidKeys from "../keys.json" assert { type: "json"};
 import { MongoService } from "./services/mongo-service.js";
@@ -12,16 +13,28 @@ webpush.setVapidDetails(
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(cors({
     origin: "*",
     methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
     allowedHeaders: "*"
 }));
 
+
 app.route("/subscribe").post(async(req, res) => {
+    console.log(req.body);
     const sub = await MongoService.setSubscriber(req.body);
-    res.status(200);
-    // .json({message: sub ?'Subscriver sent successfully.' : "Subscriber error"})
+    const response = {};
+    
+    if (sub) {
+        res.status(200);
+        response["message"] = "Inscrito com sucesso!"
+    } else {
+        res.status(500);
+        response["message"] = "Erro ao se inscrever!"
+    }
+    
+    res.json(response)
 })
 
 app.route("/notify").get(async (req, res) => {

@@ -43,7 +43,8 @@ export class MongoService {
         await this.client.connect();
         return await this.client.db("subscriptions").collection("subscriptions").insertOne(subscriver)
     } catch (error) {
-        console.error("Erro ao buscar inscritos", error);
+      console.error("Erro ao buscar inscritos", error);
+      return null;
     } finally {
         await this.client.close();
     }
