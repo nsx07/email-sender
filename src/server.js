@@ -20,7 +20,6 @@ app.use(cors({
     allowedHeaders: "*"
 }));
 
-
 app.route("/subscribe").post(async(req, res) => {
     console.log(req.body);
     const sub = await MongoService.setSubscriber(req.body);
@@ -37,27 +36,23 @@ app.route("/subscribe").post(async(req, res) => {
     res.json(response)
 })
 
-app.route("/notify").get(async (req, res) => {
+app.route("/notify").post(async (req, res) => {
     const allSubscriptions = await MongoService.getSubscribers();
 
-    console.log('Total subscriptions', allSubscriptions.length);
-    allSubscriptions && allSubscriptions.length && console.log(allSubscriptions);
+    allSubscriptions && allSubscriptions.length &&
+        console.log('Total subscriptions', allSubscriptions.length) || console.log(allSubscriptions);
 
-    const notificationPayload = {
+    const notificationPayload = req.body ?? {
         "notification": {
-            "title": "Test Push",
+            "title": "Base test",
             "body": "Testing Push Notifications!",
             "vibrate": [100, 50, 100],
-            "data": {
-                "dateOfArrival": Date.now(),
-            }
         }
     };
 
-
     Promise.all(allSubscriptions.map(sub => webpush.sendNotification(
         sub, JSON.stringify(notificationPayload) )))
-        .then((x) => res.status(200).json({message: 'Newsletter sent successfully.', record: x}))
+        .then((x) => res.status(200).json({message: 'Notification sent successfully.', record: x}))
         .catch(err => {
             console.error("Error sending notification, reason: ", err);
             res.sendStatus(500);
