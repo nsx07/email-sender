@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import webpush from "web-push";
 import vapidKeys from "../keys.json" assert { type: "json"};
 import { MongoService } from "./services/mongo-service.js";
@@ -10,6 +11,12 @@ webpush.setVapidDetails(
 );
 
 const app = express();
+
+app.use(cors({
+    origin: "*",
+    methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
+    allowedHeaders: "*"
+}));
 
 app.route("/subscribe").post(async(req, res) => {
     const sub = await MongoService.setSubscriber(req.body);
