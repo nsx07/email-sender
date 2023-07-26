@@ -1,4 +1,5 @@
 {
     "publicKey":"BNm2RvdTrp3OMyU-MrrwCRKi8LPpjLQqSrxEHG20lceWndqPDnDOI4rxu9OrQJOu62A4mueB93God48gu2hjzqA",
-    "privateKey":"vR0i8uJ5tPjCTTp0nk2xzbPKMPyt9lXNpQzD-77IGe0"
+    "privateKey":"vR0i8uJ5tPjCTTp0nk2xzbPKMPyt9lXNpQzD-77IGe0",
+    "subject": "mailto:example@yourdomain.org"
 }

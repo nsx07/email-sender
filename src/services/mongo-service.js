@@ -9,10 +9,11 @@ export class MongoService {
           strict: true,
           deprecationErrors: true,
         }
-      });
+    });
 
     constructor() {
         console.log("MongoService ON");
+        run();
     }
 
     static async run() {
@@ -26,7 +27,7 @@ export class MongoService {
           // Ensures that the client will close when you finish/error
           await client.close();
         }
-      }
+    }
     
     static async getSubscribers() {
         try {
@@ -34,20 +35,46 @@ export class MongoService {
             return await this.client.db("subscriptions").collection("subscriptions").find().toArray();
         } catch (error) {
             console.error("Erro ao buscar inscritos", error);
+            return null
         } finally {
             await this.client.close();
         }
     }
+
     static async setSubscriber(subscriver) {
       try {
         await this.client.connect();
         return await this.client.db("subscriptions").collection("subscriptions").insertOne(subscriver)
-    } catch (error) {
-      console.error("Erro ao buscar inscritos", error);
-      return null;
-    } finally {
-        await this.client.close();
+      } catch (error) {
+        console.error("Erro ao buscar inscritos", error);
+        return null;
+      } finally {
+          await this.client.close();
+      }
     }
+
+    static async get(database, collection) {
+      try {
+        await this.client.connect();
+        return await this.client.db(database).collection(collection).find().toArray();
+      } catch (error) {
+          console.error(`Erro ao buscar dados do banco ${database} e coleção ${collection}`, error);
+          return null;
+      } finally {
+          await this.client.close();
+      }
+    }
+
+    static async set(database, collection, object) {
+      try {
+        await this.client.connect();
+        return await this.client.db(database).collection(collection).insertOne(object)
+      } catch (error) {
+        console.error(`Erro ao salvar ${collection} no banco ${database}`, error);
+        return null;
+      } finally {
+          await this.client.close();
+      }
     }
 
 }
