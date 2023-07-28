@@ -1,0 +1,28 @@
+{
+    "web": {
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "client_id": "304711412389-83susatj8e4gupid8mvblari1jpmfb7l.apps.googleusercontent.com",
+        "client_secret": "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",
+        "javascript_origins": [
+            "http://localhost",
+            "https://developers.google.com"
+        ],
+        "project_id": "nodemailer-394213",
+        "redirect_uris": [
+            "https://developers.google.com/oauthplayground"
+        ],
+        "token_uri": "https://oauth2.googleapis.com/token"
+    },
+
+    "client_id": "304711412389-83susatj8e4gupid8mvblari1jpmfb7l.apps.googleusercontent.com",
+    "client_secret": "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",
+    "access_token": "ya29.a0AbVbY6OytFfQu8xNYkKilMLk7ifGPymO3Ke--xFRMHnpS5cu572Ba7Esgph2QMPJTr5gqMMcAeTrFs2xtd4IFhkNseObf5WHOhaVSJeeBfcHbRxAOWvcRqRjKKryaE9PhZvgzTpnXL5wLFgkPrRMoGCJSxc-aCgYKAVQSARMSFQFWKvPlzSKYNOmXU5TFqVKn0sO99w0163", 
+    "refresh_token": "1//045T42h1DpM3MCgYIARAAGAQSNwF-L9IrTAWhV9UkGWTjdMEMeWTLlLdVpx62pKMRdLETPzXG1UG5jdhz-D2VKeYoTBqCEl4_vy4",
+    "scope": "https://mail.google.com/", 
+    "token_type": "Bearer", 
+    "expires_in": 3599,
+
+    "mail_username": "hb.studio.agenda@gmail.com",
+    "mail_password": "HORSEATTACK@182003$"
+}

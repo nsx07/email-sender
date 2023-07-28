@@ -1,4 +1,5 @@
-import {vapidKeysObject} from "../environment/environment.js"
+import { vapidKeysObject } from "../environment/environment.js"
+import { EmailService } from "../services/email-service.js";
 import { Router } from "express";
 import webpush from "web-push";
 
@@ -41,13 +42,30 @@ router.post("/notify", async (req, res) => {
         .then((x) => res.status(200).json({message: 'Notification sent successfully.', record: x}))
         .catch(err => {
             console.error("Error sending notification, reason: ", err);
-            res.sendStatus(500);
+            res.status(500).send({error: err});
         });
-})
+});
 
 router.get("/publicKey", (req, res) => {
-    const publicKey = vapidKeysObject.publicKey;
+    res.status(200).send({publicKey: vapidKeysObject.publicKey});
+});
 
-    res.status(200);
-    res.send({publicKey: publicKey});
-})
+router.post("/email", (req, res) => {
+    const transporter = req.body.transporter 
+        ? EmailService.customTransporter(req.body.transporter)
+        : EmailService.getDefaultTransporter();
+
+    if (req.body.mail) {
+        transporter.sendMail(req.body.mail, function(err, data) {
+            if (err) {
+              console.log("Error " + err);
+              res.status(503).send({message: "Error " + err});
+            } else {
+              console.log("Email sent successfully");
+              res.status(200).send({message: "Email sent successfully"});
+            }
+          });
+    } else {
+        res.status(400).send({message: "Email body is missing and its required."})
+    }
+});
