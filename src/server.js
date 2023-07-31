@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use("/api", router)
 
 const env = {
-    host: "localhost",
+    host: "0.0.0.0",
     port: process.env.PORT ?? "5454"
 }
 
