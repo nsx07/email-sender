@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
@@ -12,6 +14,18 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use("/api", router)
+
+app.get("/doc", (req, res) => {
+    const filePath = path.join(__dirname, "../README.md");
+    fs.readFile(filePath, "utf-8", (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("Error reading README file");
+        } else {
+            res.send(data);
+        }
+    });
+});
 
 const env = {
     host: "0.0.0.0",
