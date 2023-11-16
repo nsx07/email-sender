@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
@@ -14,9 +13,22 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use("/api", router)
+app.get("/", (req, res) => {
+    res.send(`
+        <h1>EMAIL SENDER API</h1>
+        <p>API para envio de emails</p>
 
+        <h2>Rotas</h2>
+        <ul>
+            <li>POST /api/email</li>
+            <li>GET /doc</li>
+        </ul>
+
+    `);
+});
 app.get("/doc", (req, res) => {
-    const filePath = path.join(__dirname, "../README.md");
+    
+    const filePath = "../README.md";
     fs.readFile(filePath, "utf-8", (err, data) => {
         if (err) {
             console.error(err);
