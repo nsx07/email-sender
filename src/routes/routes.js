@@ -7,7 +7,7 @@ router.post("/email/send", async (req, res) => {
     let body = req.body;
 
     if (body.transporter) {
-        let transporter = emailService.customTransporter(body.transporter);
+        let transporter = EmailService.customTransporter(body.transporter);
         let error = null;
 
         if (body.mail) {
